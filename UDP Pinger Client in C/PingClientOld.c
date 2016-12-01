@@ -85,18 +85,18 @@ int main(int argc, char **argv) {
 
       /* send the message to the server */
       serverlen = sizeof(serveraddr);
-      n = sendto(sockfd, msg, strlen(msg), 0, &serveraddr, serverlen);
+      n = sendto(sockfd, &i, sizeof(int), 0, &serveraddr, serverlen);
       if (n < 0){
-        strcpy(msg, "REQUEST TIMEDOUT FROM SEND");
+        strcpy(msg, "REQUEST TIMEDOUT");
         printf ("%s\n", msg);
         sleep(1);
         continue;
       }
 
       /* print the server's reply */
-      n = recvfrom(sockfd, msg, strlen(msg), 0, NULL, 0);
+      n = recvfrom(sockfd, &i, sizeof(int), 0, NULL, 0);
       if (n < 0){
-        strcpy(msg, "REQUEST TIMEDOUT FROM RECEIVE");
+        strcpy(msg, "REQUEST TIMEDOUT");
         printf ("%s\n", msg);
         sleep(1);
         continue;
